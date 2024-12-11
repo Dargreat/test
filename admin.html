@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+  <nav>
+    <a href="admin.html">Admin Panel</a>
+    <a href="browse.html">Browse Blogs</a>
+    <section class="home" id="home">
+      <nav class="navbar">
+        <div class="logo">
+          <img src="logo.png" alt="Logo" height="40"> <!-- Replace with your logo -->
+        </div>
+        <div class="menu" id="menu">
+          <span class="fa fa-window-close" onclick="hideMenu()"></span>
+          <ul>
+            <a href="#home">Home</a>
+            <a href="#faq-container">FAQs</a>
+            <a href="#how-it-works">How it Works</a>
+            <a href="#browse-blogs">Browse Blogs</a>
+            <a href="#get-in-touch">Contact</a>
+            <a href="#blog">Blog</a>
+          </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+      </nav>
+
+      <h1 class="bigtext">EKSU BLOG</h1>
+      <h3 class="smalltext">blog . news . web3</h3>
+    </section>
+
+    <div class="admin-container">
+      <h2>Upload Blog Post</h2>
+      <!-- Upload form with AJAX for Blog -->
+      <form id="uploadForm">
+        <input type="text" id="blogTitle" name="title" placeholder="Enter Blog Title" required />
+        <textarea id="blogContent" name="content" placeholder="Enter Blog Content" required></textarea>
+        <input type="file" id="blogMedia" name="media" accept="image/*,video/*" />
+        <input type="datetime-local" id="postDateTime" name="dateTime" required />
+        <button type="submit">Upload Blog</button>
+      </form>
+
+      <h2>Manage Blog Posts</h2>
+      <!-- Search Bar to filter Blogs -->
+      <input type="text" id="searchAdmin" placeholder="Search Blogs to delete" onkeyup="searchAdminBlogs()">
+
+      <!-- List of Blogs uploaded -->
+      <div id="blogList"></div>
+    </div>
+  </nav>
+
+  <script>
+    var menu = document.getElementById("menu");
+    function showMenu() {
+      menu.style.right = "0";
+    }
+    function hideMenu() {
+      menu.style.right = "-200px";
+    }
+
+    // Handle search functionality
+    function searchAdminBlogs() {
+      const searchValue = document.getElementById("searchAdmin").value.toLowerCase();
+      const blogs = document.querySelectorAll('.blog-item');
+      blogs.forEach(blog => {
+        const title = blog.querySelector('.blog-title').innerText.toLowerCase();
+        if (title.includes(searchValue)) {
+          blog.style.display = '';
+        } else {
+          blog.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+  <!-- Firebase and Cloud Storage Integration -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+  <script src="admibn.js"></script>
+</body>
+
+</html>
